@@ -33,13 +33,13 @@ export class AuthService {
 
     signup(name: string, email: string, password: string): Observable<any> {
         const authData: User = { name: name, email: email, password: password };
-        return this.http.post<{ message: string, userId: string }>('http://188.132.197.87/api/users/signup', authData);
+        return this.http.post<{ message: string, userId: string }>('http://188.132.197.87:3000/api/users/signup', authData);
     }
 
     login(email: string, password: string, callback?: (success: boolean, message: string) => void) {
         const authData = { email: email, password: password };
 
-        this.http.post<{ token: string, expiresIn: number, userId: string }>('http://188.132.197.87/api/users/login', authData)
+        this.http.post<{ token: string, expiresIn: number, userId: string }>('http://188.132.197.87:3000/api/users/login', authData)
             .subscribe({
                 next: response => {
                     this.token = response.token;
@@ -147,7 +147,7 @@ export class AuthService {
 
     getUserRole() {
         const userId = localStorage.getItem('userId');
-        return this.http.get<{ role: string }>('http://188.132.197.87/api/users/role/' + userId).subscribe({
+        return this.http.get<{ role: string }>('http://188.132.197.87:3000/api/users/role/' + userId).subscribe({
             next: response => {
                 return response.role;
             },
