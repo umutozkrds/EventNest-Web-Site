@@ -1,0 +1,60 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Create an Account</h2>
+            <p>Join MyEvent to discover and create amazing events</p>
+        </div>
+
+        <form #form="ngForm" class="auth-form" (ngSubmit)="onSignup(form)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <div class="input-with-icon">
+                        <i class="bi bi-person"></i>
+                        <input type="text" id="firstName" placeholder="Enter your first name" ngModel required
+                            name="firstName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <div class="input-with-icon">
+                        <i class="bi bi-person"></i>
+                        <input type="text" id="lastName" placeholder="Enter your last name" ngModel required
+                            name="lastName">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-with-icon">
+                    <i class="bi bi-envelope"></i>
+                    <input type="email" id="email" placeholder="Enter your email" ngModel required name="email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <i class="bi bi-lock"></i>
+                    <input type="password" id="password" placeholder="Create a password" ngModel required
+                        name="password" minlength="8">
+                </div>
+                <small class="password-hint">Password must be at least 8 characters long</small>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-with-icon">
+                    <i class="bi bi-lock"></i>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" ngModel required
+                        name="confirmPassword" minlength="8">
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn-primary">Create Account</button>
+        </form>
+    </div>
+</div>

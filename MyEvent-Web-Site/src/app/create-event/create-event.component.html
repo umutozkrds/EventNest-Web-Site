@@ -1,0 +1,90 @@
+<div class="create-event-container">
+    <div class="form-header">
+        <h2>Create New Event</h2>
+        <p>Fill in the details below to create your event</p>
+    </div>
+
+    <form class="event-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <!-- Basic Information Section -->
+        <div class="form-section">
+            <h3>Basic Information</h3>
+
+            <div class="form-group">
+                <label for="title">Event Title</label>
+                <input type="text" id="title" placeholder="Enter event title" ngModel required name="title">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" ngModel required name="date">
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Start Time</label>
+                    <input type="time" id="time" ngModel required name="startTime">
+                </div>
+
+                <div class="form-group">
+                    <label for="endTime">End Time</label>
+                    <input type="time" id="endTime" ngModel required name="endTime">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" ngModel required name="category">
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Music">Music</option>
+                    <option value="Tech">Tech</option>
+                    <option value="Food">Food</option>
+                    <option value="Business">Business</option>
+                    <option value="Art">Art</option>
+                    <option value="Sports">Sports</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Location Section -->
+        <div class="form-section">
+            <h3>Location</h3>
+
+            <div class="form-group">
+                <label for="location">Venue Name</label>
+                <input type="text" id="location" placeholder="Enter venue name" ngModel required name="location">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" placeholder="City" ngModel required name="city">
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" placeholder="State" ngModel required name="state">
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="form-section">
+            <h3>Event Details</h3>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" rows="4" placeholder="Describe your event" ngModel required
+                    name="description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="image">Event Image</label>
+            <input type="file" id="image" ngModel required name="image" (change)="onFileSelected($event)">
+        </div>
+
+        <div class="form-buttons">
+            <button type="button" class="btn-cancel">Cancel</button>
+            <button type="submit" class="btn-create">Create Event</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,57 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Log In to EventNest</h2>
+            <p>Welcome back! Please enter your credentials to access your account</p>
+        </div>
+
+        <div class="alert" *ngIf="loginStatus"
+            [ngClass]="{'alert-success': loginStatus.success, 'alert-danger': !loginStatus.success}">
+            {{ loginStatus.message }}
+        </div>
+
+        <form class="auth-form" (submit)="onLogin(loginForm)" #loginForm="ngForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-with-icon">
+                    <i class="bi bi-envelope"></i>
+                    <input type="email" id="email" placeholder="Enter your email" ngModel name="email" required email
+                        #emailInput="ngModel">
+                </div>
+                <div class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+                    Please enter a valid email
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <i class="bi bi-lock"></i>
+                    <input type="password" id="password" placeholder="Enter your password" ngModel name="password"
+                        required minlength="8" #passwordInput="ngModel">
+                </div>
+                <div class="error-message" *ngIf="passwordInput.invalid && passwordInput.touched">
+                    Password must be at least 8 characters long
+                </div>
+            </div>
+
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" ngModel name="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-primary" [disabled]="loginForm.invalid || isLoading">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                {{ isLoading ? 'Logging in...' : 'Log In' }}
+            </button>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a routerLink="/register">Register now</a></p>
+            </div>
+        </form>
+    </div>
+</div>

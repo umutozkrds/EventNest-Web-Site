@@ -1,0 +1,79 @@
+<div class="events-container">
+    <h2 class="section-title">Events in {{ category }}</h2>
+
+<div class="filter-bar">
+    <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search events..." [(ngModel)]="searchTerm">
+    </div>
+    <div class="sort-dropdown">
+        <label for="sortSelect"><i class="bi bi-sort-down"></i> Sort by:</label>
+        <select id="sortSelect" [(ngModel)]="sortOption" (change)="sortEvents()">
+            <option value="dateAsc">Date (Earliest first)</option>
+            <option value="dateDesc">Date (Latest first)</option>
+            <option value="titleAsc">Title (A-Z)</option>
+            <option value="titleDesc">Title (Z-A)</option>
+        </select>
+    </div>
+    <div class="filter-buttons">
+        <button class="filter-btn" [class.active]="activeFilter === 'All'" (click)="setFilter('All')">All</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'Today'"
+            (click)="setFilter('Today')">Today</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'This Week'"
+            (click)="setFilter('This Week')">This Week</button>
+        <button class="filter-btn" [class.active]="activeFilter === 'This Month'"
+            (click)="setFilter('This Month')">This Month</button>
+    </div>
+</div>
+
+<div class="card-grid">
+    <!-- Dynamic Event Cards -->
+    <div class="event-card" *ngFor="let event of filteredEvents">
+        <div class="card-image-wrapper">
+            <img class="card-image" src="{{event.imagePath}}" alt="{{event.title}}">
+            alt="{{event.title}}">
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="card-date">
+                    <span class="date-day">{{ getFormattedDay(event.date) }}</span>
+                    <span class="date-month">{{ getFormattedMonth(event.date) }}</span>
+                </div>
+                <div class="card-actions">
+
+                    <div class="card-tag">{{ event.category }}</div>
+                    <button class="btn-favorite" title="Add to favorites" (click)="isFavourite(event._id || '') ? removeFavourite(event._id || '') : addFavourite(event._id || '')">
+                        <i class="bi" [class.bi-heart-fill]="isFavourite(event._id || '')"
+                            [class.bi-heart]="!isFavourite(event._id || '')"
+                            [ngStyle]="{'color': isFavourite(event._id || '') ? '#ff0000' : '#6c757d'}"></i>
+                    </button>
+                </div>
+            </div>
+
+            <h3 class="card-title">{{ event.title }}</h3>
+
+            <div class="card-details">
+                <div class="detail">
+                    <i class="bi bi-clock"></i>
+                    {{ event.startTime }} - {{ event.endTime }}
+                </div>
+                <div class="detail">
+                    <i class="bi bi-geo-alt"></i>
+                    {{ event.location }}
+                </div>
+            </div>
+
+            <p class="card-description">{{ event.description }}</p>
+
+            <div class="card-footer">
+                <a routerLink="/events/{{ event._id }}"><button class="btn-details">View Details</button></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display a message when no events are available -->
+    <div *ngIf="filteredEvents.length === 0" class="no-events-message">
+        <p>No events in this category. Try changing filters or adding a new event.</p>
+    </div>
+</div>
+</div>

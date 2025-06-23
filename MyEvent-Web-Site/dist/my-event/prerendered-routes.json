@@ -1,0 +1,10 @@
+{
+  "routes": {
+    "/": {},
+    "/create-event": {},
+    "/events": {},
+    "/favourites": {},
+    "/login": {},
+    "/register": {}
+  }
+}

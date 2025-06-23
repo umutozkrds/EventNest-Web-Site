@@ -1,0 +1,64 @@
+<div class="home-container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Discover Amazing Events</h1>
+            <p>Find and join the most exciting events happening around you</p>
+            <button class="btn-primary" routerLink="/events">Explore Events</button>
+        </div>
+    </div>
+
+    <!-- Featured Events Section -->
+    <div class="featured-section">
+        <h2 class="section-title">Featured Events</h2>
+        <div class="card-grid">
+            <!-- Featured Event Cards (updated design) -->
+            <div class="event-card" *ngFor="let event of featuredEvents">
+                <div class="card-content">
+                    <div class="card-header">
+                        <div class="card-date">
+                            <span class="date-day">{{ getFormattedDay(event.date) }}</span>
+                            <span class="date-month">{{ getFormattedMonth(event.date) }}</span>
+                        </div>
+                        <div class="card-tag">{{ event.category }}</div>
+                    </div>
+
+                    <h3 class="card-title">{{ event.title }}</h3>
+
+                    <div class="card-details">
+                        <div class="detail">
+                            <i class="bi bi-clock"></i>
+                            {{ getFormattedTime(event.date) }} - {{ event.endTime }}
+                        </div>
+                        <div class="detail">
+                            <i class="bi bi-geo-alt"></i>
+                            {{ event.location }}
+                        </div>
+                    </div>
+
+                    <p class="card-description">{{ event.description }}</p>
+
+                    <div class="card-footer">
+                        <button class="btn-details">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="categories-section" *ngIf="categories.length > 0">
+        <h2 class="section-title">Browse by Category</h2>
+        <div class="category-grid">
+            <div class="category-card" *ngFor="let category of categories" [style.background-color]="category.color">
+                <a class="category-link" routerLink="/categories/{{ category.name }}">
+                    <div class="category-icon">
+                        <i class="bi" [ngClass]="category.icon"></i>
+                    </div>
+                    <h3 class="category-title">{{ category.name }}</h3>
+                    <p>{{ category.count }} events</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

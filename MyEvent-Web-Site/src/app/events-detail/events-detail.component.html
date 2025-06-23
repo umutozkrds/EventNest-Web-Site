@@ -1,0 +1,90 @@
+<div class="event-detail-container">
+    <div class="event-header">
+        <div class="header-content">
+            <div class="category-tag">{{ event?.category }}</div>
+            <h1 class="event-title">{{ event?.title }}</h1>
+            <div class="event-meta">
+                <div class="meta-item">
+                    <i class="bi bi-calendar"></i>
+                    <span>{{ getFormattedDate(event?.date) }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-clock"></i>
+                    <span>{{ event?.startTime }} - {{ event?.endTime }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>{{ event?.location }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="event-content">
+        <div class="main-content">
+            <div class="image-container">
+                <img [src]="event?.imagePath" [alt]="event?.title">
+            </div>
+
+            <section class="event-description">
+                <h2>About This Event</h2>
+                <p>{{ event?.description }}</p>
+            </section>
+
+            <section class="event-details">
+                <h2>Event Details</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <i class="bi bi-calendar-event"></i>
+                        <div class="detail-content">
+                            <h3>Date and Time</h3>
+                            <p>{{ getFormattedDate(event?.date) }}</p>
+                            <p>{{ event?.startTime }} - {{ event?.endTime }}</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <div class="detail-content">
+                            <h3>Location</h3>
+                            <p>{{ event?.location }}</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <i class="bi bi-tag"></i>
+                        <div class="detail-content">
+                            <h3>Category</h3>
+                            <p>{{ event?.category }}</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <i class="bi bi-person"></i>
+                        <div class="detail-content">
+                            <h3>Organizer</h3>
+                            <p>{{ event?.creator }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="event-sidebar">
+            <div class="action-card">
+                <div class="date-display">
+                    <span class="date-day">{{ getFormattedDay(event?.date) }}</span>
+                    <span class="date-month">{{ getFormattedMonth(event?.date) }}</span>
+                </div>
+                <button class="btn-favorite" (click)="addFavourite(event?._id)">
+                    <i class="bi" [class.bi-heart]="!isFavorite" [class.bi-heart-fill]="isFavorite"></i>
+                    {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+                </button>
+                <button class="btn-share">
+                    <i class="bi bi-share"></i>
+                    Share Event
+                </button>
+            </div>
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="dashboard-container">
+    <div class="sidebar" [class.sidebar-closed]="!isSidebarOpen">
+        <button class="toggle-btn" (click)="toggleSidebar()">
+            <i class="bi" [class.bi-chevron-left]="isSidebarOpen" [class.bi-chevron-right]="!isSidebarOpen"></i>
+        </button>
+        <div class="sidebar-content">
+            <h3 *ngIf="isSidebarOpen">Dashboard</h3>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}">
+                        <i class="bi bi-house-door"></i>
+                        <span *ngIf="isSidebarOpen">Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/events" routerLinkActive="active">
+                        <i class="bi bi-calendar-event"></i>
+                        <span *ngIf="isSidebarOpen">Events</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/create-event" routerLinkActive="active">
+                        <i class="bi bi-plus-square-fill"></i>
+                        <span *ngIf="isSidebarOpen">Create Event</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/favourites" routerLinkActive="active">
+                        <i class="bi bi-heart"></i>
+                        <span *ngIf="isSidebarOpen">Favourites</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content" [class.main-content-expanded]="!isSidebarOpen">
+        <router-outlet></router-outlet>
+    </div>
+</div>
