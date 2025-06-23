@@ -52,8 +52,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         form.value.password,
         (success, message) => {
           console.log('Login callbackk received:', success, message);
-          const role = this.authService.getUserRole();
-          console.log('User role:', role);
+          this.authService.getUserRole().subscribe({
+            next: (response) => {
+              console.log('User role:', response.role);
+            },
+            error: (err) => {
+              console.error('Error fetching user role:', err);
+            }
+          });
           this.isLoading = false;
           this.loginStatus = { success, message };
           if (success) {
