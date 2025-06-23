@@ -137,7 +137,7 @@ exports.getFavourites = async (req, res) => {
 exports.getUserRole = async(req, res) => {
     try {
         const userId = req.params.userId;
-        const user = User.findById(userId);
+        const user = await User.findById(userId);
 
         if (!user) {
             return res.status(404).json({
@@ -149,12 +149,9 @@ exports.getUserRole = async(req, res) => {
             message: 'role retrieved successfully',
             role: user.role
         });
-
-    }
-
-    catch {
+    } catch (error) {
         return res.status(500).json({
-            message: 'Failed to retrieve favorites'
+            message: 'Failed to retrieve role'
         });
     }
 }

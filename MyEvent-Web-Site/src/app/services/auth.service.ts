@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from "../models/user.model";
 import { Observable, Subject } from "rxjs";
 import { Injectable } from "@angular/core";
@@ -146,14 +146,8 @@ export class AuthService {
     }
 
     getUserRole() {
-        const userId = localStorage.getItem('userId');
-        return this.http.get<{ role: string }>('http://188.132.197.87:3000/api/users/role/' + userId).subscribe({
-            next: response => {
-                return response.role;
-            },
-            error: error => {
-                console.error('Error getting user role:', error);
-            }
-        });
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<{ role: string }>('http://188.132.197.87:3000/api/users/role/' + this.getUserId(), { headers });
     }
 }
