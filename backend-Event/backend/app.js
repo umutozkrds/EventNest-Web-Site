@@ -34,7 +34,7 @@ app.use('/images', express.static(path.join('backend/images')));
 app.use(cors({
     origin: [
         'http://localhost:4200',
-        'http://188.132.197.87:4200',
+        'http://188.132.197.87',
         'https://res.cloudinary.com',
         'https://eventnest.online'
     ],
