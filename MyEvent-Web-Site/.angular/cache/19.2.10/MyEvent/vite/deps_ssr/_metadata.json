@@ -1,73 +1,73 @@
 {
-  "hash": "e45dc3c6",
-  "configHash": "a87a47fb",
+  "hash": "c93740c5",
+  "configHash": "897ca937",
   "lockfileHash": "3ec915c1",
-  "browserHash": "e1195146",
+  "browserHash": "cdbcdda1",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "1586963d",
+      "fileHash": "633fb5b1",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "b555662c",
+      "fileHash": "bed4c56d",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "7576b905",
+      "fileHash": "fd643b13",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "be6d3350",
+      "fileHash": "8eec4e6d",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "bc5e2e28",
+      "fileHash": "a5f7564e",
       "needsInterop": false
     },
     "@angular/platform-server": {
       "src": "../../../../../../node_modules/@angular/platform-server/fesm2022/platform-server.mjs",
       "file": "@angular_platform-server.js",
-      "fileHash": "055f6541",
+      "fileHash": "e0fe551d",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "cfbadce3",
+      "fileHash": "d90a2aa6",
       "needsInterop": false
     },
     "@angular/ssr": {
       "src": "../../../../../../node_modules/@angular/ssr/fesm2022/ssr.mjs",
       "file": "@angular_ssr.js",
-      "fileHash": "5fe9c1df",
+      "fileHash": "bb5648b6",
       "needsInterop": false
     },
     "@angular/ssr/node": {
       "src": "../../../../../../node_modules/@angular/ssr/fesm2022/node.mjs",
       "file": "@angular_ssr_node.js",
-      "fileHash": "708ff614",
+      "fileHash": "f7749804",
       "needsInterop": false
     },
     "express": {
       "src": "../../../../../../node_modules/express/index.js",
       "file": "express.js",
-      "fileHash": "5984b6d2",
+      "fileHash": "ebaec1de",
       "needsInterop": true
     },
     "rxjs": {
       "src": "../../../../../../node_modules/rxjs/dist/cjs/index.js",
       "file": "rxjs.js",
-      "fileHash": "f0dfe272",
+      "fileHash": "e53a76f7",
       "needsInterop": true
     }
   },
@@ -75,29 +75,29 @@
     "xhr2-TXIMV6CV": {
       "file": "xhr2-TXIMV6CV.js"
     },
-    "chunk-366XBDAJ": {
-      "file": "chunk-366XBDAJ.js"
+    "chunk-2FFKGKW4": {
+      "file": "chunk-2FFKGKW4.js"
     },
-    "chunk-6AF7GHOO": {
-      "file": "chunk-6AF7GHOO.js"
+    "chunk-VHUQQQMW": {
+      "file": "chunk-VHUQQQMW.js"
     },
-    "chunk-OW6Y5ZFE": {
-      "file": "chunk-OW6Y5ZFE.js"
+    "chunk-DHP47INO": {
+      "file": "chunk-DHP47INO.js"
     },
-    "chunk-CSAILZKW": {
-      "file": "chunk-CSAILZKW.js"
+    "chunk-XELYOF6U": {
+      "file": "chunk-XELYOF6U.js"
     },
-    "chunk-ZWTHAJME": {
-      "file": "chunk-ZWTHAJME.js"
+    "chunk-D2J7KEYF": {
+      "file": "chunk-D2J7KEYF.js"
     },
-    "chunk-PADDG4MD": {
-      "file": "chunk-PADDG4MD.js"
+    "chunk-IADZ5Z6C": {
+      "file": "chunk-IADZ5Z6C.js"
     },
-    "chunk-V4VRMP5K": {
-      "file": "chunk-V4VRMP5K.js"
+    "chunk-TN3OQ3ZJ": {
+      "file": "chunk-TN3OQ3ZJ.js"
     },
-    "chunk-SV3LDYHF": {
-      "file": "chunk-SV3LDYHF.js"
+    "chunk-CRS5AWGF": {
+      "file": "chunk-CRS5AWGF.js"
     },
     "chunk-AQYIT73X": {
       "file": "chunk-AQYIT73X.js"
