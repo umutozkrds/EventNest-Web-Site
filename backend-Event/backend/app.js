@@ -32,7 +32,12 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use('/images', express.static(path.join('backend/images')));
 
 app.use(cors({
-    origin: ['http://localhost:4200', 'https://res.cloudinary.com', 'https://eventnest.online'],
+    origin: [
+        'http://localhost:4200',
+        'http://188.132.197.87:4200',
+        'https://res.cloudinary.com',
+        'https://eventnest.online'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
 }));
@@ -50,5 +55,5 @@ app.use('/api/categories', categoryRoutes);
 
 module.exports = app;
 
-//9fqassqBgqD55Kt0  
+//9fqassqBgqD55Kt0
 //mongosh "mongodb+srv://cluster0.adncq66.mongodb.net/" --apiVersion 1 --username umutozkardes0
