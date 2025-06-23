@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -10,10 +11,16 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
     isSidebarOpen = false;
+    userRole: string = '';
 
-    constructor() { }
+    constructor(private authService: AuthService) { }
 
     ngOnInit() {
+        this.authService.getUserRole().subscribe({
+            next: (response) => {
+                this.userRole = response.role;
+            }
+        });
     }
 
     toggleSidebar() {
