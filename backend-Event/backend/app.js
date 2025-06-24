@@ -36,7 +36,7 @@ app.use(cors({
         'http://localhost:4200',
         'http://188.132.197.87',
         'https://res.cloudinary.com',
-        'https://eventnest.online'
+        'http://eventnest.online'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
