@@ -1,28 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info">
-  <div class="container-fluid">
-    <img src="assets/images/logo.png" alt="EventNest Logo" class="navbar-brand logo">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container-fluid py-1">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <img src="https://res.cloudinary.com/ddylkerte/image/upload/v1750765338/logo_dh5n8z.png" alt="EventNest Logo"
+        class="logo">
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
+          <a class="nav-link text-dark fw-normal" routerLink="/" routerLinkActive="active-link">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/events">Events</a>
+          <a class="nav-link text-dark fw-normal" routerLink="/events" routerLinkActive="active-link">Events</a>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/login" *ngIf="!isAuthenticated">Login</a>
+      <ul class="navbar-nav ms-auto mb-0">
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link text-dark fw-normal" routerLink="/login" routerLinkActive="active-link">Login</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/register" *ngIf="!isAuthenticated">Register</a>
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link text-dark fw-normal" routerLink="/register" routerLinkActive="active-link">Register</a>
         </li>
         <li class="nav-item" *ngIf="isAuthenticated">
-          <button class="btn btn-danger" (click)="logout()">Logout</button>
+          <button class="btn btn-outline-primary btn-sm logout-btn" (click)="logout()">Logout</button>
         </li>
       </ul>
     </div>
