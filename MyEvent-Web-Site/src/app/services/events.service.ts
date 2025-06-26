@@ -44,18 +44,6 @@ export class EventsService {
         );
     }
 
-    getPendingEvents(): Observable<EventModel[]> {
-        return this.http.get<{ message: string, events: any[] }>(`${this.apiUrl}/events/pending`).pipe(
-            map((response) => {
-                return response.events.map(event => {
-                    return {
-                        ...event,
-                        date: new Date(event.date)
-                    };
-                });
-            })
-        );
-    }
 
     getEvent(id: string): Observable<EventModel> {
         return this.http.get<{ message: string, event: any }>(`${this.apiUrl}/events/${id}`).pipe(

@@ -20,9 +20,9 @@ export class AdminpanelComponent implements OnInit {
 
   loadEvents() {
     this.loading = true;
-    this.eventsService.getPendingEvents().subscribe({
+    this.eventsService.getEvents().subscribe({
       next: (events) => {
-        this.events = events;
+        this.events = events.filter(event => event.status === 'pending');
         this.loading = false;
       },
       error: (error) => {

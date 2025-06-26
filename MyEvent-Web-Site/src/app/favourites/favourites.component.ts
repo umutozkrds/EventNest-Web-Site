@@ -27,7 +27,7 @@ export class FavouritesComponent implements OnInit {
   loadFavourites(): void {
     this.eventService.getFavourites().subscribe(
       (favourites) => {
-        this.favourites = favourites.favourites;
+        this.favourites = favourites.favourites.filter((event: EventModel) => event.status === 'approved');
         console.log(this.favourites);
       }
     );
@@ -37,7 +37,7 @@ export class FavouritesComponent implements OnInit {
     this.eventService.getEvents().subscribe({
       next: (events: EventModel[]) => {
         console.log(events);
-        this.events = events.filter(event => this.favourites.includes(event._id));
+        this.events = events.filter(event => this.favourites.includes(event._id) && event.status === 'approved');
         console.log(this.events);
         this.filteredEvents = [...this.events];
       }

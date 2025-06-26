@@ -38,7 +38,7 @@ exports.getCategories = async (req, res) => {
 };
 
 exports.getEventsByCategory = (req, res, next) => {
-    Event.find({ category: req.params.category })
+    Event.find({ category: req.params.category, status: "approved" })
         .then(events => {
             if (events) {
                 res.status(200).json({
