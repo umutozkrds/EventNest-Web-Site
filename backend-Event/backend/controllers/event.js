@@ -34,7 +34,11 @@ exports.createEvent = (req, res, next) => {
 exports.getEvents = (req, res, next) => {
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
-    const eventQuery = Event.find();
+    const showAll = req.query.showAll === 'true'; // Admin can see all events
+
+    // Default to showing only approved events for public view
+    const filter = showAll ? {} : { status: 'approved' };
+    const eventQuery = Event.find(filter);
     let fetchedEvents;
 
     if (pageSize && currentPage) {
@@ -46,7 +50,7 @@ exports.getEvents = (req, res, next) => {
     eventQuery
         .then(documents => {
             fetchedEvents = documents;
-            return Event.countDocuments();
+            return Event.countDocuments(filter);
         })
         .then(count => {
             res.status(200).json({
@@ -154,14 +158,105 @@ exports.deleteEvent = (req, res, next) => {
 }
 
 
+exports.getPendingEvents = (req, res, next) => {
+    const User = require('../models/user');
+
+    // Check if user has admin role
+    User.findById(req.userData.userId)
+        .then(user => {
+            if (!user || user.role !== 'admin') {
+                return res.status(403).json({ message: 'Access denied! Admin role required.' });
+            }
+
+            // If user is admin, get pending events
+            return Event.find({ status: 'pending' });
+        })
+        .then(events => {
+            res.status(200).json({
+                message: "Pending events fetched successfully!",
+                events: events
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching pending events:", error);
+            res.status(500).json({
+                message: "Fetching pending events failed!",
+                error: error
+            });
+        });
+}
+
 exports.approveEvent = (req, res, next) => {
     const eventId = req.params.id;
-    const event = Event.findById(eventId);
-    if (!event) {
-        return res.status(404).json({ message: 'Event not found!' });
-    }
-    event.status = "approved";
-    event.save();
-    return res.status(200).json({ message: 'Event approved successfully!' });
+    const User = require('../models/user');
+
+    // First check if user has admin role
+    User.findById(req.userData.userId)
+        .then(user => {
+            if (!user || user.role !== 'admin') {
+                return res.status(403).json({ message: 'Access denied! Admin role required.' });
+            }
+
+            // If user is admin, proceed with approval
+            return Event.findById(eventId);
+        })
+        .then(event => {
+            if (!event) {
+                return res.status(404).json({ message: 'Event not found!' });
+            }
+
+            event.status = "approved";
+            return event.save();
+        })
+        .then(result => {
+            res.status(200).json({
+                message: 'Event approved successfully!',
+                event: result
+            });
+        })
+        .catch(error => {
+            console.error("Error approving event:", error);
+            res.status(500).json({
+                message: "Approving event failed!",
+                error: error
+            });
+        });
+}
+
+exports.rejectEvent = (req, res, next) => {
+    const eventId = req.params.id;
+    const User = require('../models/user');
+
+    // First check if user has admin role
+    User.findById(req.userData.userId)
+        .then(user => {
+            if (!user || user.role !== 'admin') {
+                return res.status(403).json({ message: 'Access denied! Admin role required.' });
+            }
+
+            // If user is admin, proceed with rejection
+            return Event.findById(eventId);
+        })
+        .then(event => {
+            if (!event) {
+                return res.status(404).json({ message: 'Event not found!' });
+            }
+
+            event.status = "rejected";
+            return event.save();
+        })
+        .then(result => {
+            res.status(200).json({
+                message: 'Event rejected successfully!',
+                event: result
+            });
+        })
+        .catch(error => {
+            console.error("Error rejecting event:", error);
+            res.status(500).json({
+                message: "Rejecting event failed!",
+                error: error
+            });
+        });
 }
 
