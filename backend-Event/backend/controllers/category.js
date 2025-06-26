@@ -6,12 +6,18 @@ exports.getCategories = async (req, res) => {
         const categories = await Category.find();
         const categoryCounts = await Event.aggregate([
             {
+                $match: {
+                    status: "approved"
+                }
+            },
+            {
                 $group: {
                     _id: '$category',
                     count: { $sum: 1 }
+
                 }
             }
-        ]);
+        ], );
 
         const categoriesWithCounts = categories.map(category => {
             const count = categoryCounts.find(c => c._id === category.name)?.count || 0;
@@ -38,7 +44,7 @@ exports.getCategories = async (req, res) => {
 };
 
 exports.getEventsByCategory = (req, res, next) => {
-    Event.find({ category: req.params.category, status: "approved" })
+    Event.find({ category: req.params.category})
         .then(events => {
             if (events) {
                 res.status(200).json({
