@@ -38,7 +38,7 @@ export class CategoriesComponent implements OnInit {
         this.category = params['category'];
         this.eventService.getEventsByCategory(this.category).subscribe(
           (events) => {
-            this.events = events;
+            this.events = events.filter(event => event.status === 'approved');
             this.filteredEvents = [...this.events];
           }
         );
