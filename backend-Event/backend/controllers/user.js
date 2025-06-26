@@ -9,6 +9,12 @@ exports.createUser = (req, res, next) => {
             email: req.body.email,
             password: hash
         });
+        if(user.email === req.body.email){
+            return res.status(401).json({
+                message: "This email is already registered"
+            });
+        }
+       
         user.save().then((result) => {
             res.status(201).json({
                 message: 'User created successfully!',
@@ -28,7 +34,7 @@ exports.userLogin = (req, res, next) => {
         .then(user => {
             if (!user) {
                 return res.status(401).json({
-                    message: "Auth failed"
+                    message: "This email is not registered"
                 });
             }
             fetchedUser = user;
@@ -37,7 +43,7 @@ exports.userLogin = (req, res, next) => {
         .then(result => {
             if (!result) {
                 return res.status(401).json({
-                    message: "Auth failed"
+                    message: "Invalid password"
                 });
             }
             const token = jwt.sign(
