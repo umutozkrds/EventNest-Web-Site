@@ -20,7 +20,7 @@ export class AdminpanelComponent implements OnInit {
 
   loadEvents() {
     this.loading = true;
-    this.eventsService.getEvents().subscribe({
+    this.eventsService.getPendingEvents().subscribe({
       next: (events) => {
         this.events = events;
         this.loading = false;

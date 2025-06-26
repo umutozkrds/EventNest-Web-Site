@@ -15,6 +15,7 @@ router.put('/:id', checkAuth, upload.single('image'), eventController.updateEven
 router.delete('/:id', checkAuth, eventController.deleteEvent);
 router.put('/approve/:id', checkAuth, eventController.approveEvent);
 router.put('/reject/:id', checkAuth, eventController.rejectEvent);
+router.get('/pending', checkAuth, eventController.getPendingEvents);
 
 
 module.exports = router; 

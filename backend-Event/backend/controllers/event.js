@@ -35,7 +35,7 @@ exports.getEvents = (req, res, next) => {
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
     
-    const eventQuery = Event.find();
+    const eventQuery = Event.find({status: "approved"});
     let fetchedEvents;
 
     if (pageSize && currentPage) {
@@ -60,6 +60,22 @@ exports.getEvents = (req, res, next) => {
             res.status(500).json({
                 message: "Fetching events failed!"
             });
+        });
+}
+
+exports.getPendingEvents = (req, res, next) => {
+    Event.find({status: "pending"})
+        .then(events => {
+            res.status(200).json({
+                message: "Pending events fetched successfully!",
+                events: events
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching pending events:", error);
+            res.status(500).json({
+                message: "Fetching pending events failed!"
+            }); 
         });
 }
 
