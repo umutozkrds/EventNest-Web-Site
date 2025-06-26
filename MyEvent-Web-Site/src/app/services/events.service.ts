@@ -122,7 +122,7 @@ export class EventsService {
     approveEvent(eventId: string): Observable<any> {
         const token = this.authService.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.put(`${this.apiUrl}/events/approve/${eventId}`, { headers });
+        return this.http.patch(`${this.apiUrl}/events/${eventId}/approve`, {}, { headers });
     }
-    
+
 }
