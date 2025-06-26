@@ -64,19 +64,25 @@ exports.getEvents = (req, res, next) => {
 }
 
 exports.getPendingEvents = (req, res, next) => {
-    Event.find({status: "pending"})
-        .then(events => {
-            res.status(200).json({
-                message: "Pending events fetched successfully!",
-                events: events
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching pending events:", error);
-            res.status(500).json({
-                message: "Fetching pending events failed!"
-            }); 
-        });
+   const eventQuery = Event.find({status: "pending"});
+   let fetchedEvents;
+   eventQuery
+   .then(documents => {
+    fetchedEvents = documents;
+   })
+   .then(count => { 
+    res.status(200).json({
+        message: "Pending events fetched successfully!",
+        events: fetchedEvents,
+        maxEvents: count
+    });
+   })   
+   .catch(error => {
+    console.error("Error fetching pending events:", error);
+    res.status(500).json({
+        message: "Fetching pending events failed!"
+    });
+   });
 }
 
 exports.getEvent = (req, res, next) => {
