@@ -9,7 +9,6 @@ const upload = multer({ storage });
 
 router.post('', upload.single('image'), checkAuth, eventController.createEvent);
 router.get('', eventController.getEvents);
-router.get('/pending', checkAuth, eventController.getPendingEvents);
 router.get('/user/:userId', eventController.getEventsByCreator);
 router.get('/:id', eventController.getEvent);
 router.put('/:id', checkAuth, upload.single('image'), eventController.updateEvent);

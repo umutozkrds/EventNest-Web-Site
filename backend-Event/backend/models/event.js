@@ -10,7 +10,7 @@ const eventSchema = new mongoose.Schema({
     category: { type: String, required: true },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     imagePath: { type: String, required: true },
-    status: { type: String, default: 'pending', enum: ['pending', 'approved', 'rejected'] }
+    status: { type: String, default: 'pending'}
 });
 
 module.exports = mongoose.model('Event', eventSchema);
