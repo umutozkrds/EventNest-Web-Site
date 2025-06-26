@@ -154,3 +154,14 @@ exports.deleteEvent = (req, res, next) => {
 }
 
 
+exports.approveEvent = (req, res, next) => {
+    const eventId = req.params.id;
+    const event = Event.findById(eventId);
+    if (!event) {
+        return res.status(404).json({ message: 'Event not found!' });
+    }
+    event.status = "approved";
+    event.save();
+    return res.status(200).json({ message: 'Event approved successfully!' });
+}
+

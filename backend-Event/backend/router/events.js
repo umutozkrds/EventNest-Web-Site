@@ -13,6 +13,7 @@ router.get('/user/:userId', eventController.getEventsByCreator);
 router.get('/:id', eventController.getEvent);
 router.put('/:id', checkAuth, upload.single('image'), eventController.updateEvent);
 router.delete('/:id', checkAuth, eventController.deleteEvent);
+router.put('/approve/:id', checkAuth, eventController.approveEvent);
 
 
 module.exports = router; 

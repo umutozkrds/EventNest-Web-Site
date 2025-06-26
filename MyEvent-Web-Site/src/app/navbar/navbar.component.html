@@ -26,6 +26,9 @@
         <li class="nav-item" *ngIf="!isAuthenticated">
           <a class="nav-link text-dark fw-normal" routerLink="/register" routerLinkActive="active-link">Register</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark fw-normal" routerLink="/admin" routerLinkActive="active-link">Admin</a>
+        </li>
         <li class="nav-item" *ngIf="isAuthenticated">
           <button class="btn btn-outline-primary btn-sm logout-btn" (click)="logout()">Logout</button>
         </li>

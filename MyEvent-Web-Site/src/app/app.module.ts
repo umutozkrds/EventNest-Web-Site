@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -19,7 +19,7 @@ import { AuthService } from './services/auth.service';
 import { EventsDetailComponent } from './events-detail/events-detail.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { AdminComponent } from './admin/admin.component';
+import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 
 @NgModule({
   declarations: [
@@ -34,11 +34,12 @@ import { AdminComponent } from './admin/admin.component';
     EventsDetailComponent,
     FavouritesComponent,
     CategoriesComponent,
-    AdminComponent
+    AdminpanelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     RouterOutlet,
     FormsModule,
     HttpClientModule,
