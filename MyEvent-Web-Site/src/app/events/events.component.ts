@@ -42,7 +42,8 @@ export class EventsComponent implements OnInit {
   getEvents(): void {
     this.eventService.getEvents().subscribe({
       next: (events: EventModel[]) => {
-        this.events = events;
+
+        this.events = events.filter(event => event.status === 'approved');
         this.filteredEvents = [...this.events];
       }
     });
