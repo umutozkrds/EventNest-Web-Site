@@ -51,7 +51,7 @@ export class AuthService {
                         this.authStatusListener.next(true);
                         const expiresInDuration = response.expiresIn;
                         this.saveAuthData(this.token, new Date(new Date().getTime() + expiresInDuration * 1000), this.userId);
-                        
+
                         // Let the component handle navigation
                         if (callback) {
                             callback(true, "Login successful!");
@@ -156,6 +156,6 @@ export class AuthService {
     makeRequest() {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.post<{ message: string }>(`${this.apiUrl}/request/${this.getUserId()}`, { headers });
+        return this.http.post<{ message: string }>(`${this.apiUrl}/request/${this.getUserId()}`, {}, { headers });
     }
 }
