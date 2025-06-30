@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { OrganizerRequest } from '../models/organizers.model';
 
-export interface OrganizerRequest {
-  id?: string;
-  userId: string;
-  name: string;
-  email: string;
-  phone?: string;
-  experienceLevel: string;
-  previousEvents?: number;
-  motivation?: string;
-  applicationDate: Date;
-  status: 'pending' | 'approved' | 'rejected';
-}
+
+
 
 @Component({
   selector: 'app-organizator-requests',
@@ -21,11 +13,15 @@ export interface OrganizerRequest {
 })
 export class OrganizatorRequestsComponent implements OnInit {
   loading = false;
-  requests: OrganizerRequest[] = [];
-  filteredRequests: OrganizerRequest[] = [];
+  filteredRequests: any[] = [];
   searchTerm = '';
   statusFilter = 'all';
-  selectedRequest: OrganizerRequest | null = null;
+  selectedRequest: any | null = null;
+  requests: any[] = [];
+
+
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit() {
     this.loadRequests();
@@ -33,57 +29,15 @@ export class OrganizatorRequestsComponent implements OnInit {
 
   loadRequests() {
     this.loading = true;
-    // Simulated data - replace with actual API call
+    this.authService.getRequests().subscribe({
+      next: (response) => {
+        this.requests = response.requests;
+        this.filteredRequests = [...this.requests];
+        this.loading = false;
+      }
+    });
     setTimeout(() => {
-      this.requests = [
-        {
-          id: '1',
-          userId: 'user1',
-          name: 'John Doe',
-          email: 'john.doe@example.com',
-          phone: '+1234567890',
-          experienceLevel: 'Intermediate',
-          previousEvents: 5,
-          motivation: 'I have been organizing small community events for the past two years and would love to expand my reach.',
-          applicationDate: new Date('2024-01-15'),
-          status: 'pending'
-        },
-        {
-          id: '2',
-          userId: 'user2',
-          name: 'Jane Smith',
-          email: 'jane.smith@example.com',
-          phone: '+0987654321',
-          experienceLevel: 'Advanced',
-          previousEvents: 12,
-          motivation: 'Professional event coordinator with extensive experience in corporate and social events.',
-          applicationDate: new Date('2024-01-10'),
-          status: 'approved'
-        },
-        {
-          id: '3',
-          userId: 'user3',
-          name: 'Mike Johnson',
-          email: 'mike.johnson@example.com',
-          experienceLevel: 'Beginner',
-          previousEvents: 1,
-          motivation: 'Passionate about bringing people together through amazing events.',
-          applicationDate: new Date('2024-01-20'),
-          status: 'pending'
-        },
-        {
-          id: '4',
-          userId: 'user4',
-          name: 'Sarah Wilson',
-          email: 'sarah.wilson@example.com',
-          phone: '+1122334455',
-          experienceLevel: 'Intermediate',
-          previousEvents: 8,
-          motivation: 'Looking to contribute to the community by organizing meaningful events.',
-          applicationDate: new Date('2024-01-08'),
-          status: 'rejected'
-        }
-      ];
+      this.requests = [];
       this.filteredRequests = [...this.requests];
       this.loading = false;
     }, 1000);
