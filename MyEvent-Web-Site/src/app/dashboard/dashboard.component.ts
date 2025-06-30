@@ -29,7 +29,9 @@ export class DashboardComponent implements OnInit {
         motivation: ''
     };
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService) {
+        this.authService = authService;
+    }
 
     ngOnInit() {
         this.authService.getUserRole().subscribe({
@@ -44,8 +46,8 @@ export class DashboardComponent implements OnInit {
         this.isSidebarOpen = !this.isSidebarOpen;
     }
 
-    makeOrganizerRequest(userId: string) {
-        this.authService.makeRequest(userId).subscribe({
+    makeOrganizerRequest() {
+        this.authService.makeRequest(this.authService.getUserId()).subscribe({
             next: (response) => {
                 console.log(response);
             }

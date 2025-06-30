@@ -35,7 +35,7 @@
             </ul>
             <ul class="nav flex-column">
                 <li class="nav-item" *ngIf="userRole !== 'admin'">
-                    <a class="nav-link" routerLinkActive="active">
+                    <a class="nav-link" (click)="makeOrganizerRequest()" routerLinkActive="active">
                         <i class="bi bi-star-fill"></i>
                         <span *ngIf="isSidebarOpen">Apply to become an organizer</span>
                     </a>
