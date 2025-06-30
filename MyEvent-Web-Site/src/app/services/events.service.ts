@@ -126,4 +126,18 @@ export class EventsService {
         return this.http.put(`${this.apiUrl}/events/approve/${eventId}`, {}, { headers });
     }
 
+    getFeaturedEvents(userId: string): Observable<EventModel[]> {
+        return this.http.get<{ message: string, events: any[] }>(`${this.apiUrl}/events/featured/${userId}`).pipe(
+            map((response) => {
+                return response.events.map(event => {
+                    return {
+                        ...event,
+                        date: new Date(event.date)
+                    };
+                });
+            })
+        );
+    }
+
+
 }

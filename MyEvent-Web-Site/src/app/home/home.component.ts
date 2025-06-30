@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { CategoryModel } from '../models/category.model';
 import { EventModel } from '../models/event.model';
 import { CategoriesService } from '../services/categories.service';
+import { EventsService } from '../services/events.service';
+import { AuthService } from '../services/auth.service';
+
 @Component({
   selector: 'app-home',
   standalone: false,
@@ -15,12 +18,18 @@ export class HomeComponent implements OnInit {
 
   categories: CategoryModel[] = [];
 
-  constructor(private router: Router, private categoriesService: CategoriesService) { }
+  constructor(private router: Router, private categoriesService: CategoriesService, private eventsService: EventsService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.categoriesService.getCategories().subscribe(categories => {
       this.categories = categories.categories;
       console.log(this.categories);
+    });
+
+
+    this.eventsService.getFeaturedEvents(this.authService.getUserId()).subscribe(events => {
+      this.featuredEvents = events;
+      console.log(this.featuredEvents);
     });
   }
 

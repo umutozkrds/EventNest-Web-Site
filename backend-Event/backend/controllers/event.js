@@ -231,3 +231,16 @@ exports.rejectEvent = (req, res, next) => {
         });
 }
 
+
+exports.getFeaturedEvents = (req, res, next) => {
+    const userId = req.params.userId;
+    const user = req.userData.userId;
+    const userFavorites = user.favorites;
+    const categories = userFavorites.map(favorite => favorite.category);
+    const events = Event.find({ category: { $in: categories } });
+    res.status(200).json({
+        message: 'Featured events fetched successfully!',
+        events: events
+    });
+    
+}
