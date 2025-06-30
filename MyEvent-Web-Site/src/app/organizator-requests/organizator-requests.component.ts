@@ -34,13 +34,12 @@ export class OrganizatorRequestsComponent implements OnInit {
         this.requests = response.requests;
         this.filteredRequests = [...this.requests];
         this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading requests:', error);
+        this.loading = false;
       }
     });
-    setTimeout(() => {
-      this.requests = [];
-      this.filteredRequests = [...this.requests];
-      this.loading = false;
-    }, 1000);
   }
 
   filterRequests() {
