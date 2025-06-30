@@ -1,7 +1,17 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-12">
-            <h2 class="mb-4">Admin Panel - Events Management</h2>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" routerLink="/adminpanel/events">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/adminpanel/organizers">Organizers</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12">
+            <h2 class="mb-4" >Admin Panel - Events Management</h2>
 
             <!-- Loading indicator -->
             <div *ngIf="loading" class="text-center py-4">

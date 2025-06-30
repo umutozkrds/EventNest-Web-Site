@@ -11,6 +11,7 @@ import { EventsDetailComponent } from './events-detail/events-detail.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
+import { OrganizatorRequestsComponent } from './organizator-requests/organizator-requests.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuard] },
   { path: 'categories/:category', component: CategoriesComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: AdminpanelComponent, canActivate: [AdminGuard] },
+  { path: 'adminpanel/events', component: AdminpanelComponent, canActivate: [AdminGuard] },
+  { path: 'adminpanel/organizers', component: OrganizatorRequestsComponent, canActivate: [AdminGuard] },
 ];
 
 @NgModule({

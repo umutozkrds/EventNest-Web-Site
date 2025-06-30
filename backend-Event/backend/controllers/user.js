@@ -187,5 +187,19 @@ exports.makeRequest = async (req, res) => {
         });
     }
 }
+exports.getRequests = async (req, res) => {
+    try {
+        const requests = await Request.find();
+        return res.status(200).json({
+            message: 'Requests fetched successfully',
+            requests: requests
+        });
+    } catch (error) {   
+        return res.status(500).json({
+            message: 'Failed to fetch requests'
+        });
+    }
+}
+
 
 

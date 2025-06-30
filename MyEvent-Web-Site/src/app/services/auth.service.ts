@@ -158,4 +158,10 @@ export class AuthService {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.post<{ message: string }>(`${this.apiUrl}/request/${this.getUserId()}`, {}, { headers });
     }
+
+    getRequests() {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<{ requests: Request[] }>(`${this.apiUrl}/requests`, { headers });
+    }
 }
