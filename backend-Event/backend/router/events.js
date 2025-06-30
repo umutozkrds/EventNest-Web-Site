@@ -15,7 +15,6 @@ router.put('/:id', checkAuth, upload.single('image'), eventController.updateEven
 router.delete('/:id', checkAuth, eventController.deleteEvent);
 router.put('/approve/:id', checkAuth, eventController.approveEvent);
 router.put('/reject/:id', checkAuth, eventController.rejectEvent);
-router.get('/featured/:userId', checkAuth, eventController.getFeaturedEvents);
-
+router.get('/featured/:userId', eventController.getFeaturedEvents);
 
 module.exports = router; 

@@ -1,5 +1,6 @@
 const Event = require('../models/event');
 const mongoose = require('mongoose');
+const User = require('../models/user');
 
 exports.createEvent = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host');
@@ -232,15 +233,30 @@ exports.rejectEvent = (req, res, next) => {
 }
 
 
-exports.getFeaturedEvents = (req, res, next) => {
-    const userId = req.params.userId;
-    const user = req.userData.userId;
-    const userFavorites = user.favorites;
-    const categories = userFavorites.map(favorite => favorite.category);
-    const events = Event.find({ category: { $in: categories } });
-    res.status(200).json({
-        message: 'Featured events fetched successfully!',
-        events: events
-    });
+exports.getFeaturedEvents = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+        const user = await User.findById(userId);
+        let categories = [];
+        const favorites = user.favourites;
+        const events = await Event.find({ _id: { $in: favorites }});
+        for (const event of events) {
+            categories.push(event.category);
+        }
+        const featuredEvents = await Event.find({ category: { $in: categories } });
+        res.status(200).json({
+            message: 'Featured events fetched successfully!',
+            events: featuredEvents
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: 'Fetching featured events failed!',
+            error: error
+        });
+    }
+
+
     
+  
 }
