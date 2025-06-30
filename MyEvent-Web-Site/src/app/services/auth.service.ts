@@ -153,9 +153,9 @@ export class AuthService {
         return this.http.get<{ role: string }>(`${this.apiUrl}/role/${this.getUserId()}`, { headers });
     }
 
-    makeRequest(userId: string) {
+    makeRequest() {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.post<{ message: string }>(`${this.apiUrl}/request`, { userId }, { headers });
+        return this.http.post<{ message: string }>(`${this.apiUrl}/request/${this.getUserId()}`, { headers });
     }
 }

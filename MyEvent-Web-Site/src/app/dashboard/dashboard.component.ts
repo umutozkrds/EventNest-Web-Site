@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
     }
 
     makeOrganizerRequest() {
-        this.authService.makeRequest(this.authService.getUserId()).subscribe({
+        this.authService.makeRequest().subscribe({
             next: (response) => {
                 console.log(response);
             }
