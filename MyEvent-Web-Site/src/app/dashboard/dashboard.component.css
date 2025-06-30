@@ -1,9 +1,9 @@
 .dashboard-container {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     /* Subtract navbar height */
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .sidebar {
@@ -108,6 +108,8 @@
     flex: 1;
     margin-left: 0;
     transition: margin-left 0.3s ease;
+    overflow-y: auto;
+    height: 100vh;
 }
 
 .main-content-expanded {
