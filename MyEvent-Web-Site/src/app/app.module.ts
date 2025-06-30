@@ -20,6 +20,7 @@ import { EventsDetailComponent } from './events-detail/events-detail.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
+import { OrganizatorRequestsComponent } from './organizator-requests/organizator-requests.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AdminpanelComponent } from './adminpanel/adminpanel.component';
     EventsDetailComponent,
     FavouritesComponent,
     CategoriesComponent,
-    AdminpanelComponent
+    AdminpanelComponent,
+    OrganizatorRequestsComponent
   ],
   imports: [
     BrowserModule,

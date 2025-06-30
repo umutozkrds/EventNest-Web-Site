@@ -162,4 +162,29 @@ exports.getUserRole = async(req, res) => {
     }
 }
 
+exports.makeRequest = async (req, res) => {
+    try {
+       const userId = req.params.userId;
+       const user = await User.findById(userId);
+       if (!user) {
+        return res.status(404).json({
+            message: 'User not found'
+        });
+       }    
+       const request = new Request({
+        userId: userId,
+        userName: user.name,
+        userEmail: user.email
+       });
+       await request.save();
+       return res.status(200).json({
+        message: 'Request sent successfully'
+       });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Failed to send request'
+        });
+    }
+}
+
 

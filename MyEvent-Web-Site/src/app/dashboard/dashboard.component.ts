@@ -3,6 +3,13 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 
+export interface OrganizerRequestForm {
+    experienceLevel: string;
+    previousEvents: number;
+    phone: string;
+    motivation: string;
+}
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
@@ -12,6 +19,15 @@ import { AuthService } from '../services/auth.service';
 export class DashboardComponent implements OnInit {
     isSidebarOpen = false;
     userRole: string = '';
+    hasRequestPending = false;
+    isSubmitting = false;
+
+    organizerRequest: OrganizerRequestForm = {
+        experienceLevel: '',
+        previousEvents: 0,
+        phone: '',
+        motivation: ''
+    };
 
     constructor(private authService: AuthService) { }
 
@@ -26,5 +42,13 @@ export class DashboardComponent implements OnInit {
 
     toggleSidebar() {
         this.isSidebarOpen = !this.isSidebarOpen;
+    }
+
+    makeOrganizerRequest(userId: string) {
+        this.authService.makeRequest(userId).subscribe({
+            next: (response) => {
+                console.log(response);
+            }
+        });
     }
 } 

@@ -13,6 +13,8 @@ export class AuthService {
     private authStatusListener = new Subject<boolean>();
     private isAuthenticated = false;
     private userRole: string = '';
+    private apiUrl = 'http://188.132.197.87:3000/api/users';
+
     constructor(private http: HttpClient, private router: Router) { }
 
     getToken() {
@@ -33,13 +35,13 @@ export class AuthService {
 
     signup(name: string, email: string, password: string): Observable<any> {
         const authData: User = { name: name, email: email, password: password };
-        return this.http.post<{ message: string, userId: string }>('http://188.132.197.87:3000/api/users/signup', authData);
+        return this.http.post<{ message: string, userId: string }>(`${this.apiUrl}/signup`, authData);
     }
 
     login(email: string, password: string, callback?: (success: boolean, message: string) => void) {
         const authData = { email: email, password: password };
 
-        this.http.post<{ token: string, expiresIn: number, userId: string }>('http://188.132.197.87:3000/api/users/login', authData)
+        this.http.post<{ token: string, expiresIn: number, userId: string }>(`${this.apiUrl}/login`, authData)
             .subscribe({
                 next: response => {
                     this.token = response.token;
@@ -148,6 +150,12 @@ export class AuthService {
     getUserRole() {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.get<{ role: string }>('http://188.132.197.87:3000/api/users/role/' + this.getUserId(), { headers });
+        return this.http.get<{ role: string }>(`${this.apiUrl}/role/${this.getUserId()}`, { headers });
+    }
+
+    makeRequest(userId: string) {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post<{ message: string }>(`${this.apiUrl}/request`, { userId }, { headers });
     }
 }
