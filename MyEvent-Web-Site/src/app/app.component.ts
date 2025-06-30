@@ -8,7 +8,7 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  title = 'MyEvent';
+  title = 'EventNest';
   isAuthenticated = false;
 
   constructor(private authService: AuthService) {
