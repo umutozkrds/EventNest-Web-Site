@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private categoriesService: CategoriesService, private eventService: EventsService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.loadFavourites();
     this.categoriesService.getCategories().subscribe(categories => {
       this.categories = categories.categories;
       console.log(this.categories);
