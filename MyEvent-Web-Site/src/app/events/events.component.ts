@@ -17,10 +17,12 @@ export class EventsComponent implements OnInit {
   filteredEvents: EventModel[] = [];
   sortOption: string = 'dateAsc'; // Default sort option
   favourites: any[] = [];
+  attendedEvents: any[] = [];
 
   constructor(private router: Router, private eventService: EventsService) { }
 
   ngOnInit(): void {
+    this.loadAttendedEvents();
     this.loadFavourites();
     this.getEvents();
   }
@@ -194,4 +196,45 @@ export class EventsComponent implements OnInit {
       }
     });
   }
+
+  isAttended(eventId: string): boolean {
+    return this.attendedEvents.includes(eventId);
+  }
+
+  loadAttendedEvents(): void {
+    this.eventService.getAttendedEvents().subscribe({
+      next: (response: any) => {
+        this.attendedEvents = response.attendedEvents;
+      },
+      error: (error) => {
+        console.error('Error loading attended events:', error);
+        this.attendedEvents = [];
+      }
+    });
+  }
+
+  removeAttendedEvent(eventId: string): void {
+    this.eventService.removeAttendedEvent(eventId).subscribe({
+      next: () => {
+        console.log('Event removed from attended:', eventId);
+        this.loadAttendedEvents();
+      },
+      error: (error) => {
+        console.error('Error removing attended event:', error);
+      }
+    });
+  }
+
+  addAttendedEvent(eventId: string): void {
+    this.eventService.addAttendedEvent(eventId).subscribe({
+      next: () => {
+        console.log('Event added to attended:', eventId); 
+        this.loadAttendedEvents();
+      },
+      error: (error) => {
+        console.error('Error adding attended event:', error);
+      }
+    });
+  }
+  
 }

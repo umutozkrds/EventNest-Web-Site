@@ -80,10 +80,25 @@
                     <i class="bi" [class.bi-heart]="!isFavorite" [class.bi-heart-fill]="isFavorite"></i>
                     {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
                 </button>
+                <button class="btn-attend btn-large" [class.attended]="isAttended(event?._id)"
+                    [title]="isAttended(event?._id) ? 'Remove from attended' : 'Mark as attended'"
+                    (click)="isAttended(event?._id) ? removeAttendedEvent(event?._id) : addAttendedEvent(event?._id)">
+                    <i class="bi" [class.bi-check-circle-fill]="isAttended(event?._id)"
+                        [class.bi-check-circle]="!isAttended(event?._id)"></i>
+                    <span class="attend-tooltip">{{ isAttended(event?._id) ? 'Attended' : 'Attend' }}</span>
+                </button>
                 <button class="btn-share">
                     <i class="bi bi-share"></i>
                     Share Event
                 </button>
+            </div>
+            <div class="action-card">
+                <h2>Attended People</h2>
+                <div class="attended-people">
+                    <div class="attended-person" *ngFor="let person of attendedPeople">
+                        <span>{{ person.name }}</span>
+                    </div>
+                </div>
             </div>
         </aside>
     </div>

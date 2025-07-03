@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         type: [String],
         default: [],
     },
+    attendedEvents: {
+        type: [String],
+        default: [],
+    },
     role: {
         type: String,
         default : "user"

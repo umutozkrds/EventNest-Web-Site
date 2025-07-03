@@ -17,11 +17,12 @@ export class HomeComponent implements OnInit {
   featuredEvents: EventModel[] = [];
   favourites: any[] = [];
   categories: CategoryModel[] = [];
-
+  attendedEvents: any[] = [];
   constructor(private router: Router, private categoriesService: CategoriesService, private eventService: EventsService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadFavourites();
+    this.loadAttendedEvents();
     this.categoriesService.getCategories().subscribe(categories => {
       this.categories = categories.categories;
       console.log(this.categories);
@@ -96,5 +97,41 @@ export class HomeComponent implements OnInit {
 
   viewEventDetails(eventId: number): void {
     this.router.navigate(['/events', eventId]);
+  }
+
+  isAttended(eventId: string): boolean {
+    return this.attendedEvents.includes(eventId);
+  }
+
+  addAttendedEvent(eventId: string): void {
+    this.eventService.addAttendedEvent(eventId).subscribe({
+      next: () => {
+        console.log('Event added to attended:', eventId);
+        this.loadAttendedEvents();
+      },
+      error: (error) => {
+        console.error('Error adding attended event:', error);
+      }
+    });
+  }
+
+  removeAttendedEvent(eventId: string): void {
+    this.eventService.removeAttendedEvent(eventId).subscribe({
+      next: () => {
+        console.log('Event removed from attended:', eventId);
+        this.loadAttendedEvents();
+      },
+      error: (error) => {
+        console.error('Error removing attended event:', error);
+      }
+    });
+  }
+
+  loadAttendedEvents(): void {
+    this.eventService.getAttendedEvents().subscribe({
+      next: (response: any) => {
+        this.attendedEvents = response.attendedEvents;
+      },
+    });
   }
 }

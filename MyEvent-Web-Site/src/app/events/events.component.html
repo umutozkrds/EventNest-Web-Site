@@ -42,10 +42,19 @@
                     <div class="card-actions">
 
                         <div class="card-tag">{{ event.category }}</div>
-                        <button class="btn-favorite" title="Add to favorites" (click)="isFavourite(event._id || '') ? removeFavourite(event._id || '') : addFavourite(event._id || '')">
+                        <button class="btn-favorite" title="Add to favorites"
+                            (click)="isFavourite(event._id || '') ? removeFavourite(event._id || '') : addFavourite(event._id || '')">
                             <i class="bi" [class.bi-heart-fill]="isFavourite(event._id || '')"
                                 [class.bi-heart]="!isFavourite(event._id || '')"
                                 [ngStyle]="{'color': isFavourite(event._id || '') ? '#ff0000' : '#6c757d'}"></i>
+                        </button>
+                        <button class="btn-attend btn-small" [class.attended]="isAttended(event._id || '')"
+                            [title]="isAttended(event._id || '') ? 'Remove from attended' : 'Mark as attended'"
+                            (click)="isAttended(event._id || '') ? removeAttendedEvent(event._id || '') : addAttendedEvent(event._id || '')">
+                            <i class="bi" [class.bi-check-circle-fill]="isAttended(event._id || '')"
+                                [class.bi-check-circle]="!isAttended(event._id || '')"></i>
+                            <span class="attend-tooltip">{{ isAttended(event._id || '') ? 'Attended' : 'Attend'
+                                }}</span>
                         </button>
                     </div>
                 </div>

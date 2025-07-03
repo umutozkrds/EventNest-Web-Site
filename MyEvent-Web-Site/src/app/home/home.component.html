@@ -32,6 +32,13 @@
                                     [class.bi-heart]="!isFavourite(event._id || '')"
                                     [ngStyle]="{'color': isFavourite(event._id || '') ? '#ff0000' : '#6c757d'}"></i>
                             </button>
+                            <button class="btn-attend" [class.attended]="isAttended(event._id || '')"
+                                [title]="isAttended(event._id || '') ? 'Remove from attended' : 'Mark as attended'"
+                                (click)="isAttended(event._id || '') ? removeAttendedEvent(event._id || '') : addAttendedEvent(event._id || '')">
+                                <i class="bi" [class.bi-check-circle-fill]="isAttended(event._id || '')"
+                                    [class.bi-check-circle]="!isAttended(event._id || '')"></i>
+                                <span class="attend-tooltip">{{ isAttended(event._id || '') ? 'Attended' : 'Attend' }}</span>
+                            </button>
                         </div>
                     </div>
     

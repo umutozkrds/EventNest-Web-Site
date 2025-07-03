@@ -142,4 +142,23 @@ export class EventsService {
     }
 
 
+    addAttendedEvent(eventId: string): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(`${this.apiUrl}/users/attended/${eventId}`, { userId: this.authService.getUserId() }, { headers });
+    }
+
+    getAttendedEvents(): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get(`${this.apiUrl}/users/attended/${this.authService.getUserId()}`, { headers });
+    }
+
+    removeAttendedEvent(eventId: string): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.delete(`${this.apiUrl}/users/attended/${eventId}`, { headers, body: { userId: this.authService.getUserId() } });
+    }
+
+
 }

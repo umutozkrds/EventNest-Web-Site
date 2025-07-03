@@ -27,8 +27,8 @@
           <a class="nav-link text-dark fw-normal" routerLink="/register" routerLinkActive="active-link">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark fw-normal" routerLink="/adminpanel/events" routerLinkActive="active-link" *ngIf="userId === '683fe8ea68c1ae7d243338e7'">Admin</a>
-        </li>
+            <a class="nav-link text-dark fw-normal" routerLink="/adminpanel/events" routerLinkActive="active-link" *ngIf="userId === adminId">Admin</a>
+          </li>
         <li class="nav-item" *ngIf="isAuthenticated">
           <button class="btn btn-outline-primary btn-sm logout-btn" (click)="logout()">Logout</button>
         </li>

@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  message: string = '';
   constructor(private authService: AuthService) { }
 
   onSignup(form: NgForm) {
@@ -21,6 +22,7 @@ export class RegisterComponent {
     const name = form.value.firstName + ' ' + form.value.lastName;
     this.authService.signup(name, form.value.email, form.value.password).subscribe({
       next: (response) => {
+        this.message = response.message;
         form.reset();
       },
       error: (error) => {

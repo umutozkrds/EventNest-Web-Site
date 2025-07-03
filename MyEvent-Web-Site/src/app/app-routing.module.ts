@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuard] },
   { path: 'categories/:category', component: CategoriesComponent, canActivate: [AuthGuard] },
   { path: 'adminpanel/events', component: AdminpanelComponent, canActivate: [AdminGuard] },
-  { path: 'adminpanel/organizers', component: OrganizatorRequestsComponent, canActivate: [AdminGuard] },
+  { path: 'adminpanel/requests', component: OrganizatorRequestsComponent, canActivate: [AdminGuard] },
 ];
 
 @NgModule({

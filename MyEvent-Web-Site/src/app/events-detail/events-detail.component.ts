@@ -12,6 +12,8 @@ import { EventsService } from '../services/events.service';
 export class EventsDetailComponent implements OnInit {
   event: EventModel | null = null;
   isFavorite: boolean = false;
+  attendedEvents: any[] = [];
+  attendedPeople: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -24,7 +26,10 @@ export class EventsDetailComponent implements OnInit {
         this.loadEvent(params['id']);
       }
     });
+    this.loadAttendedEvents();
   }
+
+
 
   loadEvent(id: string): void {
     this.eventsService.getEvent(id).subscribe({
@@ -74,6 +79,48 @@ export class EventsDetailComponent implements OnInit {
         } else {
           console.error('Error updating favorites:', error);
         }
+      }
+    });
+  }
+
+  isAttended(eventId: string | undefined): boolean {
+    return this.attendedEvents.includes(eventId);
+  }
+
+  addAttendedEvent(eventId: string | undefined): void {
+    if (!eventId) return;
+    this.eventsService.addAttendedEvent(eventId).subscribe({
+      next: () => {
+        console.log('Event added to attended:', eventId);
+        this.loadAttendedEvents();
+      },
+      error: (error) => {
+        console.error('Error adding attended event:', error);
+      }
+    });
+  }
+
+  removeAttendedEvent(eventId: string | undefined): void {
+    if (!eventId) return;
+    this.eventsService.removeAttendedEvent(eventId).subscribe({
+      next: () => {
+        console.log('Event removed from attended:', eventId);
+        this.loadAttendedEvents();
+      },
+      error: (error) => {
+        console.error('Error removing attended event:', error);
+      }
+    });
+  }
+
+  loadAttendedEvents(): void {
+    this.eventsService.getAttendedEvents().subscribe({
+      next: (response: any) => {
+        this.attendedEvents = response.attendedEvents;
+      },
+      error: (error) => {
+        console.error('Error loading attended events:', error);
+        this.attendedEvents = [];
       }
     });
   }

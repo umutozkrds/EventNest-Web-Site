@@ -11,5 +11,8 @@ router.get('/role/:userId', checkAuth, userController.getUserRole)
 router.post('/request/:userId', userController.makeRequest);
 router.get('/requests', checkAuth, userController.getRequests);
 router.put('/approve/:userId', checkAuth, userController.approveRequest);
+router.post('/attended/:eventId', checkAuth, userController.addAttendedEvent);
+router.get('/attended/:userId', checkAuth, userController.getAttendedEvents);
+router.delete('/attended/:eventId', checkAuth, userController.removeAttendedEvent);
 
 module.exports = router;

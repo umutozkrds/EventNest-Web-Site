@@ -4,29 +4,42 @@ const jwt = require('jsonwebtoken');
 const Request = require('../models/requests');
 
 exports.createUser = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10).then(hash => {
-        const user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            password: hash
-        });
-        if (user.email === req.body.email) {
-            return res.status(401).json({
-                message: "This email is already registered"
-            });
-        }
+    // First check if user already exists
+    User.findOne({ email: req.body.email })
+        .then(existingUser => {
+            if (existingUser) {
+                return res.status(401).json({
+                    message: "This email is already registered"
+                });
+            }
 
-        user.save().then((result) => {
+            // If user doesn't exist, proceed with registration
+            return bcrypt.hash(req.body.password, 10);
+        })
+        .then(hash => {
+            if (!hash) return; // Skip if user already exists
+
+            const user = new User({
+                name: req.body.name,
+                email: req.body.email,
+                password: hash
+            });
+
+            return user.save();
+        })
+        .then((result) => {
+            if (!result) return; // Skip if user already exists
+
             res.status(201).json({
                 message: 'User created successfully!',
                 userId: result._id
             });
-        }).catch(err => {
+        })
+        .catch(err => {
             res.status(500).json({
                 message: "Invalid authentication credentials!"
             });
         });
-    });
 }
 
 exports.userLogin = (req, res, next) => {
@@ -141,6 +154,70 @@ exports.getFavourites = async (req, res) => {
     }
 };
 
+exports.addAttendedEvent = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+        const userId = req.body.userId;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        user.attendedEvents.push(eventId);
+        await user.save();
+        return res.status(200).json({
+            message: 'Event added to attended events'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Failed to add event to attended events'
+        });
+    }
+}
+
+exports.getAttendedEvents = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        return res.status(200).json({
+            message: 'Attended events retrieved successfully',
+            attendedEvents: user.attendedEvents
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Failed to retrieve attended events'
+        });
+    }
+}
+
+exports.removeAttendedEvent = async (req, res) => {
+    try {
+        const eventId = req.params.eventId;
+        const userId = req.body.userId;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        user.attendedEvents = user.attendedEvents.filter(id => id.toString() !== eventId);
+        await user.save();
+        return res.status(200).json({
+            message: 'Event removed from attended events'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Failed to remove event from attended events'
+        });
+    }
+}
+
 exports.getUserRole = async (req, res) => {
     try {
         const userId = req.params.userId;
@@ -201,7 +278,7 @@ exports.getRequests = async (req, res) => {
             message: 'Requests fetched successfully',
             requests: requests
         });
-    } catch (error) {   
+    } catch (error) {
         return res.status(500).json({
             message: 'Failed to fetch requests'
         });
@@ -212,6 +289,7 @@ exports.approveRequest = async (req, res) => {
     try {
         const userId = req.params.userId;
         const user = await User.findById(userId);
+
         if (!user) {
             return res.status(404).json({
                 message: 'User not found'
@@ -219,6 +297,7 @@ exports.approveRequest = async (req, res) => {
         }
         user.role = 'admin';
         await user.save();
+        await Request.deleteOne({ userId: userId });
         return res.status(200).json({
             message: 'User approved successfully'
         });

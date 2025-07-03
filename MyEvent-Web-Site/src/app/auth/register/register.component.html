@@ -6,6 +6,11 @@
         </div>
 
         <form #form="ngForm" class="auth-form" (ngSubmit)="onSignup(form)">
+            
+            <div class="form-group error-message" *ngIf="message">
+                <p>{{ message }}</p>
+            </div>
+
             <div class="form-row">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
