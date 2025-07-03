@@ -33,6 +33,7 @@ export class AuthService {
         return this.authStatusListener.asObservable();
     }
 
+
     signup(name: string, email: string, password: string): Observable<any> {
         const authData: User = { name: name, email: email, password: password };
         return this.http.post<{ message: string, userId: string }>(`${this.apiUrl}/signup`, authData);

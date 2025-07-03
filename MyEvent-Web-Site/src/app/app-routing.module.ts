@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'events', component: EventsComponent },
   { path: 'events/:id', component: EventsDetailComponent },
-  { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard] },
+  { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard], canActivateChild: [AdminGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuard] },
