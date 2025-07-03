@@ -166,6 +166,12 @@ exports.getUserRole = async (req, res) => {
 exports.makeRequest = async (req, res) => {
     try {
         const userId = req.params.userId;
+        const existingRequest = await Request.findOne({ userId: userId });
+        if (existingRequest) {
+            return res.status(400).json({
+                message: 'Request already exists'
+            });
+        }
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({
@@ -175,7 +181,8 @@ exports.makeRequest = async (req, res) => {
         const request = new Request({
             userId: userId,
             userName: user.name,
-            userEmail: user.email
+            userEmail: user.email,
+            userRole: user.role
         });
         await request.save();
         return res.status(200).json({
@@ -197,6 +204,27 @@ exports.getRequests = async (req, res) => {
     } catch (error) {   
         return res.status(500).json({
             message: 'Failed to fetch requests'
+        });
+    }
+}
+
+exports.approveRequest = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        user.role = 'admin';
+        await user.save();
+        return res.status(200).json({
+            message: 'User approved successfully'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Failed to approve user'
         });
     }
 }

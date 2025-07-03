@@ -10,5 +10,6 @@ router.delete('/favourites/:eventId', checkAuth, userController.removeFavourite)
 router.get('/role/:userId', checkAuth, userController.getUserRole)
 router.post('/request/:userId', userController.makeRequest);
 router.get('/requests', checkAuth, userController.getRequests);
+router.put('/approve/:userId', checkAuth, userController.approveRequest);
 
 module.exports = router;

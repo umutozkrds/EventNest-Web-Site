@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventModel } from '../models/event.model';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class EventsService {
-    private apiUrl = 'http://188.132.197.87:3000/api';
+    private apiUrl = environment.apiUrl;
 
     constructor(
         private http: HttpClient,

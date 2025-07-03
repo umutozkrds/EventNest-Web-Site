@@ -11,7 +11,7 @@
             </ul>
         </div>
         <div class="col-12">
-            <h2 class="mb-4" >Admin Panel - Events Management</h2>
+            <h2 class="mb-4">Admin Panel - Events Management</h2>
 
             <!-- Loading indicator -->
             <div *ngIf="loading" class="text-center py-4">
@@ -68,9 +68,12 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm" (click)="approveEvent(event._id!)"
-                                            [disabled]="!event._id">
-                                            Approve
+                                        <button class="btn btn-success btn-sm" (click)="approveEvent(event._id!)"
+                                            [disabled]="!event._id || loading || event.status === 'approved'"
+                                            title="Approve Event">
+                                            <i class="bi bi-check-circle me-1"></i>
+                                            <span *ngIf="loading">Approving...</span>
+                                            <span *ngIf="!loading">Approve</span>
                                         </button>
                                     </td>
                                 </tr>

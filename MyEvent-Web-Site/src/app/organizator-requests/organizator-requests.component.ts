@@ -32,6 +32,7 @@ export class OrganizatorRequestsComponent implements OnInit {
     this.authService.getRequests().subscribe({
       next: (response) => {
         this.requests = response.requests;
+        console.log(this.requests);
         this.filteredRequests = [...this.requests];
         this.loading = false;
       },
@@ -89,26 +90,25 @@ export class OrganizatorRequestsComponent implements OnInit {
     }
   }
 
-  getTimeAgo(date: Date): string {
-    const now = new Date();
-    const diffInMs = now.getTime() - new Date(date).getTime();
-    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
 
-    if (diffInDays === 0) return 'Today';
-    if (diffInDays === 1) return 'Yesterday';
-    if (diffInDays < 7) return `${diffInDays} days ago`;
-    if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
-    return `${Math.floor(diffInDays / 30)} months ago`;
-  }
 
-  approveRequest(id: string) {
-    const request = this.requests.find(r => r.id === id);
-    if (request) {
-      request.status = 'approved';
-      this.filterRequests();
-      // TODO: Add API call to approve request
-      console.log('Approved request:', id);
-    }
+  approveRequest(userId: string) {
+    this.loading = true;
+    this.authService.approveRequest(userId).subscribe({
+      next: (response) => {
+        console.log('Request approved successfully:', response);
+        // Reload the requests to reflect the change in UI
+        this.loadRequests();
+        // You can add a success message here if needed
+        alert('Request approved successfully!');
+      },
+      error: (error) => {
+        console.error('Error approving request:', error);
+        this.loading = false;
+        // Show error message to user
+        alert('Failed to approve request. Please try again.');
+      }
+    });
   }
 
   rejectRequest(id: string) {
@@ -119,11 +119,5 @@ export class OrganizatorRequestsComponent implements OnInit {
       // TODO: Add API call to reject request
       console.log('Rejected request:', id);
     }
-  }
-
-  viewDetails(request: OrganizerRequest) {
-    this.selectedRequest = request;
-    // TODO: Open modal programmatically if needed
-    console.log('View details for:', request);
   }
 }

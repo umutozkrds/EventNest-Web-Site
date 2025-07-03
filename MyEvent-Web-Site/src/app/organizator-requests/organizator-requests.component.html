@@ -77,7 +77,6 @@
                                     <th>User</th>
                                     <th>Contact</th>
                                     <th>Application Date</th>
-                                    <th>Experience</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -90,7 +89,7 @@
                                                 <i class="bi bi-person-circle display-6 text-secondary"></i>
                                             </div>
                                             <div>
-                                                <h6 class="mb-0">{{ request.name }}</h6>
+                                                <h6 class="mb-0">{{ request.userName }}</h6>
                                                 <small class="text-muted">ID: {{ request.userId }}</small>
                                             </div>
                                         </div>
@@ -99,15 +98,9 @@
                                         <div>
                                             <div class="mb-1">
                                                 <i class="bi bi-envelope me-1"></i>
-                                                {{ request.email }}
+                                                {{ request.userEmail }}
                                             </div>
-                                        
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <div>{{ request.applicationDate | date:'short' }}</div>
-                                            <small class="text-muted">{{ getTimeAgo(request.applicationDate) }}</small>
+
                                         </div>
                                     </td>
                                     <td>
@@ -120,28 +113,24 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="badge" [ngClass]="getStatusBadgeClass(request.status)">
-                                            <i class="bi" [ngClass]="getStatusIcon(request.status)"></i>
-                                            {{ request.status | titlecase }}
-                                        </span>
+                                        
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-success btn-sm" (click)="approveRequest(request.id!)"
-                                                [disabled]="!request.id || request.status === 'approved'"
+                                            <button class="btn btn-success btn-sm"
+                                                (click)="approveRequest(request.userId)"
+                                                [disabled]="loading || request.status === 'approved'"
                                                 title="Approve Request">
                                                 <i class="bi bi-check-circle me-1"></i>
-                                                Approve
+                                                <span *ngIf="loading">Approving...</span>
+                                                <span *ngIf="!loading">Approve</span>
                                             </button>
-                                            <button class="btn btn-danger btn-sm" (click)="rejectRequest(request.id!)"
-                                                [disabled]="!request.id || request.status === 'rejected'"
+                                            <button class="btn btn-danger btn-sm"
+                                                (click)="rejectRequest(request.userId)"
+                                                [disabled]="loading || request.status === 'rejected'"
                                                 title="Reject Request">
                                                 <i class="bi bi-x-circle me-1"></i>
                                                 Reject
-                                            </button>
-                                            <button class="btn btn-outline-secondary btn-sm"
-                                                (click)="viewDetails(request)" title="View Details">
-                                                <i class="bi bi-eye"></i>
                                             </button>
                                         </div>
                                     </td>

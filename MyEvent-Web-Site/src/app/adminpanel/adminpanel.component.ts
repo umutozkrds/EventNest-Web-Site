@@ -59,10 +59,18 @@ export class AdminpanelComponent implements OnInit {
   }
 
   approveEvent(eventId: string) {
+    this.loading = true;
     this.eventsService.approveEvent(eventId).subscribe({
-      next: () => {
+      next: (response) => {
+        console.log('Event approved successfully:', response);
         this.loadEvents();
+        alert('Event approved successfully!');
       },
+      error: (error) => {
+        console.error('Error approving event:', error);
+        this.loading = false;
+        alert('Failed to approve event. Please try again.');
+      }
     });
   }
 }
