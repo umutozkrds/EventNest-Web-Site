@@ -26,7 +26,7 @@ export class RegisterComponent {
         form.reset();
       },
       error: (error) => {
-        console.log(error);
+        // Error during signup
       }
     });
   }

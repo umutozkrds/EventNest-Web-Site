@@ -28,27 +28,25 @@ export class CategoriesComponent implements OnInit {
     this.eventService.getFavourites().subscribe(
       (favourites) => {
         this.favourites = favourites.favourites;
-        console.log(this.favourites);
       }
     );
   }
 
   getEvents(): void {
     this.route.params.subscribe(params => {
-        this.category = params['category'];
-        this.eventService.getEventsByCategory(this.category).subscribe(
-          (events) => {
-            this.events = events.filter(event => event.status === 'approved');
-            this.filteredEvents = [...this.events];
-          }
-        );
-      });
+      this.category = params['category'];
+      this.eventService.getEventsByCategory(this.category).subscribe(
+        (events) => {
+          this.events = events.filter(event => event.status === 'approved');
+          this.filteredEvents = [...this.events];
+        }
+      );
+    });
   }
 
   isFavourite(eventId: string): boolean {
     // Add null check and ensure it's an array
     if (!Array.isArray(this.favourites)) {
-      console.warn('Favourites is not an array:', this.favourites);
       return false;
     }
     return this.favourites.includes(eventId);
@@ -59,7 +57,6 @@ export class CategoriesComponent implements OnInit {
       const dateObj = date instanceof Date ? date : new Date(date);
       return dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     } catch (error) {
-      console.error('Error formatting time:', error);
       return '--:--';
     }
   }
@@ -69,7 +66,6 @@ export class CategoriesComponent implements OnInit {
       const dateObj = date instanceof Date ? date : new Date(date);
       return dateObj.getDate().toString();
     } catch (error) {
-      console.error('Error formatting day:', error);
       return '--';
     }
   }
@@ -79,7 +75,6 @@ export class CategoriesComponent implements OnInit {
       const dateObj = date instanceof Date ? date : new Date(date);
       return dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
     } catch (error) {
-      console.error('Error formatting month:', error);
       return '---';
     }
   }
@@ -164,12 +159,11 @@ export class CategoriesComponent implements OnInit {
   addFavourite(eventId: string): void {
     this.eventService.addFavourite(eventId).subscribe({
       next: () => {
-        console.log('Event added to favorites:', eventId);
         // Reload favorites after adding
         this.loadFavourites();
       },
       error: (error) => {
-        console.error('Error adding favorite:', error);
+        // Error adding favorite
       }
     });
   }
@@ -177,13 +171,12 @@ export class CategoriesComponent implements OnInit {
   removeFavourite(eventId: string): void {
     this.eventService.removeFavourite(eventId).subscribe({
       next: () => {
-        console.log('Event removed from favorites:', eventId);
         this.loadFavourites();
       },
       error: (error) => {
-        console.error('Error removing favorite:', error);
+        // Error removing favorite
       }
     });
   }
-} 
+}
 

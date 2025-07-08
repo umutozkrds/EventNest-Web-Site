@@ -31,10 +31,6 @@ export class AdminGuard implements CanActivate {
         // Get current user ID
         const currentUserId = this.authService.getUserId();
 
-        // Console log for debugging - to help you find your admin user ID
-        console.log('Current User ID:', currentUserId);
-        console.log('Required Admin ID:', this.ADMIN_USER_ID);
-
         // Check if user is the admin
         if (currentUserId !== this.ADMIN_USER_ID) {
             // Redirect non-admin users to events page with error message

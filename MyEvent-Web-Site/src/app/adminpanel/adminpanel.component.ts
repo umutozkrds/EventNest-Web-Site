@@ -26,7 +26,7 @@ export class AdminpanelComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error loading events:', error);
+        // Error loading events
         this.loading = false;
       }
     });
@@ -39,7 +39,7 @@ export class AdminpanelComponent implements OnInit {
           this.loadEvents(); // Reload the events list
         },
         error: (error) => {
-          console.error('Error deleting event:', error);
+          // Error deleting event
         }
       });
     }
@@ -62,12 +62,10 @@ export class AdminpanelComponent implements OnInit {
     this.loading = true;
     this.eventsService.approveEvent(eventId).subscribe({
       next: (response) => {
-        console.log('Event approved successfully:', response);
         this.loadEvents();
         alert('Event approved successfully!');
       },
       error: (error) => {
-        console.error('Error approving event:', error);
         this.loading = false;
         alert('Failed to approve event. Please try again.');
       }

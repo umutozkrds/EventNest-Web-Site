@@ -37,7 +37,7 @@ export class EventsDetailComponent implements OnInit {
         this.event = event;
       },
       error: (error) => {
-        console.error('Error loading event:', error);
+        // Error loading event
       }
     });
   }
@@ -71,13 +71,12 @@ export class EventsDetailComponent implements OnInit {
     this.eventsService.addFavourite(eventId).subscribe({
       next: (response) => {
         this.isFavorite = !this.isFavorite;
-        console.log(response.message);
       },
       error: (error) => {
         if (error.status === 400) {
-          console.log(error.error.message || 'This event is already in your favorites');
+          // This event is already in favorites
         } else {
-          console.error('Error updating favorites:', error);
+          // Error updating favorites
         }
       }
     });
@@ -91,11 +90,10 @@ export class EventsDetailComponent implements OnInit {
     if (!eventId) return;
     this.eventsService.addAttendedEvent(eventId).subscribe({
       next: () => {
-        console.log('Event added to attended:', eventId);
         this.loadAttendedEvents();
       },
       error: (error) => {
-        console.error('Error adding attended event:', error);
+        // Error adding attended event
       }
     });
   }
@@ -104,11 +102,10 @@ export class EventsDetailComponent implements OnInit {
     if (!eventId) return;
     this.eventsService.removeAttendedEvent(eventId).subscribe({
       next: () => {
-        console.log('Event removed from attended:', eventId);
         this.loadAttendedEvents();
       },
       error: (error) => {
-        console.error('Error removing attended event:', error);
+        // Error removing attended event
       }
     });
   }
@@ -119,7 +116,6 @@ export class EventsDetailComponent implements OnInit {
         this.attendedEvents = response.attendedEvents;
       },
       error: (error) => {
-        console.error('Error loading attended events:', error);
         this.attendedEvents = [];
       }
     });

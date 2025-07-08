@@ -64,10 +64,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.authService.getUserRole().subscribe({
             next: (response) => {
                 this.userRole = response.role;
-                console.log('User role updated:', this.userRole);
             },
             error: (error) => {
-                console.error('Error fetching user role:', error);
                 this.userRole = '';
             }
         });
@@ -80,7 +78,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     makeOrganizerRequest() {
         this.authService.makeRequest().subscribe({
             next: (response) => {
-                console.log(response);
+                // Request made successfully
+                alert('Request made successfully');
+            },
+            error: (error) => {
+                alert('Request failed');
             }
         });
     }

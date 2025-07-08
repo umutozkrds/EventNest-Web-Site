@@ -62,7 +62,6 @@ export class AuthService {
                     this.router.navigate(['/events']);
                 },
                 error: error => {
-                    console.error('Login error:', error);
                     this.authStatusListener.next(false);
                     if (callback) {
                         const message = error.error?.message || "Authentication failed. Please check your credentials.";

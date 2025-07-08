@@ -55,7 +55,7 @@ export class CreateEventComponent implements OnInit {
         this.router.navigate(['/events']);
       },
       error: (error) => {
-        console.error('Error creating event:', error);
+        // Error creating event
       }
     });
   }

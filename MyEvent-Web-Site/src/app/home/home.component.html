@@ -13,6 +13,9 @@
         <h2 class="section-title">Featured Events</h2>
         <div class="card-grid">
             <!-- Featured Event Cards (updated design) -->
+             <div *ngIf="featuredEvents.length === 0">
+                <p>You have to login and add some events to your favourites to see them here</p>
+             </div>
             <div class="event-card" *ngFor="let event of featuredEvents">
                 <div class="card-image-wrapper">
                     <img class="card-image" src="{{event.imagePath}}" alt="{{event.title}}">

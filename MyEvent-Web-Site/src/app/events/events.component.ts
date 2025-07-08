@@ -30,12 +30,10 @@ export class EventsComponent implements OnInit {
   loadFavourites(): void {
     this.eventService.getFavourites().subscribe({
       next: (response: any) => {
-        console.log('Received favourites:', response);
         // Ensure favourites is always an array from the response
         this.favourites = Array.isArray(response.favourites) ? response.favourites : [];
       },
       error: (error) => {
-        console.error('Error loading favourites:', error);
         this.favourites = [];
       }
     });
@@ -50,27 +48,25 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  
 
-  
+
+
 
   isFavourite(eventId: string): boolean {
     // Add null check and ensure it's an array
     if (!Array.isArray(this.favourites)) {
-      console.warn('Favourites is not an array:', this.favourites);
       return false;
     }
     return this.favourites.includes(eventId);
   }
 
- 
+
 
   getFormattedTime(date: Date | string): string {
     try {
       const dateObj = date instanceof Date ? date : new Date(date);
       return dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     } catch (error) {
-      console.error('Error formatting time:', error);
       return '--:--';
     }
   }
@@ -80,7 +76,6 @@ export class EventsComponent implements OnInit {
       const dateObj = date instanceof Date ? date : new Date(date);
       return dateObj.getDate().toString();
     } catch (error) {
-      console.error('Error formatting day:', error);
       return '--';
     }
   }
@@ -90,7 +85,6 @@ export class EventsComponent implements OnInit {
       const dateObj = date instanceof Date ? date : new Date(date);
       return dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase();
     } catch (error) {
-      console.error('Error formatting month:', error);
       return '---';
     }
   }
@@ -175,12 +169,11 @@ export class EventsComponent implements OnInit {
   addFavourite(eventId: string): void {
     this.eventService.addFavourite(eventId).subscribe({
       next: () => {
-        console.log('Event added to favorites:', eventId);
         // Reload favorites after adding
         this.loadFavourites();
       },
       error: (error) => {
-        console.error('Error adding favorite:', error);
+        // Error adding favorite
       }
     });
   }
@@ -188,11 +181,10 @@ export class EventsComponent implements OnInit {
   removeFavourite(eventId: string): void {
     this.eventService.removeFavourite(eventId).subscribe({
       next: () => {
-        console.log('Event removed from favorites:', eventId);
         this.loadFavourites();
       },
       error: (error) => {
-        console.error('Error removing favorite:', error);
+        // Error removing favorite
       }
     });
   }
@@ -207,7 +199,6 @@ export class EventsComponent implements OnInit {
         this.attendedEvents = response.attendedEvents;
       },
       error: (error) => {
-        console.error('Error loading attended events:', error);
         this.attendedEvents = [];
       }
     });
@@ -216,11 +207,10 @@ export class EventsComponent implements OnInit {
   removeAttendedEvent(eventId: string): void {
     this.eventService.removeAttendedEvent(eventId).subscribe({
       next: () => {
-        console.log('Event removed from attended:', eventId);
         this.loadAttendedEvents();
       },
       error: (error) => {
-        console.error('Error removing attended event:', error);
+        // Error removing attended event
       }
     });
   }
@@ -228,13 +218,12 @@ export class EventsComponent implements OnInit {
   addAttendedEvent(eventId: string): void {
     this.eventService.addAttendedEvent(eventId).subscribe({
       next: () => {
-        console.log('Event added to attended:', eventId); 
         this.loadAttendedEvents();
       },
       error: (error) => {
-        console.error('Error adding attended event:', error);
+        // Error adding attended event
       }
     });
   }
-  
+
 }

@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuard] },
-  { path: 'categories/:category', component: CategoriesComponent, canActivate: [AuthGuard] },
+  { path: 'categories/:category', component: CategoriesComponent},
   { path: 'adminpanel/events', component: AdminpanelComponent, canActivate: [AdminGuard] },
   { path: 'adminpanel/requests', component: OrganizatorRequestsComponent, canActivate: [AdminGuard] },
 ];

@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log('Login attempt with:', form.value.email);
     this.isLoading = true;
     this.loginStatus = null;
 
@@ -51,13 +50,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         form.value.email,
         form.value.password,
         (success, message) => {
-          console.log('Login callbackk received:', success, message);
           this.authService.getUserRole().subscribe({
             next: (response) => {
-              console.log('User role:', response.role);
+              // User role fetched successfully
             },
             error: (err) => {
-              console.error('Error fetching user role:', err);
+              // Error fetching user role
             }
           });
           this.isLoading = false;
@@ -70,7 +68,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       );
     } catch (error) {
-      console.error('Login error caught:', error);
       this.isLoading = false;
       this.loginStatus = { success: false, message: 'An error occurred during login' };
     }

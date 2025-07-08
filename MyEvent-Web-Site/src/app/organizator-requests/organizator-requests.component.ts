@@ -32,12 +32,11 @@ export class OrganizatorRequestsComponent implements OnInit {
     this.authService.getRequests().subscribe({
       next: (response) => {
         this.requests = response.requests;
-        console.log(this.requests);
         this.filteredRequests = [...this.requests];
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error loading requests:', error);
+        // Error loading requests
         this.loading = false;
       }
     });
@@ -96,14 +95,12 @@ export class OrganizatorRequestsComponent implements OnInit {
     this.loading = true;
     this.authService.approveRequest(userId).subscribe({
       next: (response) => {
-        console.log('Request approved successfully:', response);
         // Reload the requests to reflect the change in UI
         this.loadRequests();
         // You can add a success message here if needed
         alert('Request approved successfully!');
       },
       error: (error) => {
-        console.error('Error approving request:', error);
         this.loading = false;
         // Show error message to user
         alert('Failed to approve request. Please try again.');
@@ -117,7 +114,6 @@ export class OrganizatorRequestsComponent implements OnInit {
       request.status = 'rejected';
       this.filterRequests();
       // TODO: Add API call to reject request
-      console.log('Rejected request:', id);
     }
   }
 }
